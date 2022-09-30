@@ -16,6 +16,7 @@
         icon
         x-large
         color="pink"
+        @click="onLikeClicked"
       >
         <v-icon>mdi-heart</v-icon>
       </v-btn>
@@ -31,6 +32,12 @@
         type: Object,
         required: true
       },
+    },
+    methods: {
+      onLikeClicked() {
+        console.log("onLike")
+        this.$emit('liked', this.subject.id);
+      }
     }
   }
 </script>

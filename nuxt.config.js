@@ -38,6 +38,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -49,9 +50,35 @@ export default {
 
   proxy: {
     '/proxy': {
-      target: 'http://localhost:8080/',
+      target: 'http://localhost:9900/',
       pathRewrite: { '^/proxy': '' },
       changeOrigin: true
+    }
+  },
+
+  auth: {
+    proxy: true,
+    watchLoggedIn: true,
+    redirect: {
+      login: '/login',
+      logout: '/login',
+      callback: '/login',
+      home: '/'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'accessToken',
+          global: true,
+          required: true,
+          type: 'Bearer'
+        },
+        endpoints: {
+          login: { url: '/proxy/api/auth/login', method: 'post' },
+          logout: false,
+          user: false
+        }
+      }
     }
   },
 

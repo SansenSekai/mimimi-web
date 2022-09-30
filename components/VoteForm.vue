@@ -5,16 +5,15 @@
       flat
       tile
     >
-      <vote-subject :subject="pair.leftSubject" />
+      <vote-subject :subject="pair.leftSubject" @liked="voted('leftSubject')"/>
       <v-card
         class="pa-2 align-center"
         outlined
         tile
-
       >
         VS
       </v-card>
-      <vote-subject :subject="pair.rightSubject" />
+      <vote-subject :subject="pair.rightSubject" @liked="voted('rightSubject')"/>
     </v-card>
   </div>
 </template>
@@ -29,6 +28,17 @@
       pair: {
         type: Object,
         required: true,
+      }
+    },
+    data() {
+      return {
+        data: {...this.pair}
+      }
+    },
+    methods: {
+      voted(item) {
+        this.data[item].voted = true;
+        this.$emit("voted", this.data);
       }
     }
   }
