@@ -50,6 +50,7 @@ export default {
 
   proxy: {
     '/proxy': {
+      // target: 'http://api:9900/',
       target: 'http://localhost:9900/',
       pathRewrite: { '^/proxy': '' },
       changeOrigin: true
